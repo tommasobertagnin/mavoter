@@ -23,11 +23,14 @@ const pollSchema = new Schema({
   },
   options: {
     type: [optionSchema],
-    required: true
+    required: true,
+    validate: {
+      validator: options => options.length >= 2,
+      message: 'The array should >= 2'
+    }
   }
 }, {
   timestamps: true
 })
 
 module.exports = mongoose.model('Poll', pollSchema)
-
