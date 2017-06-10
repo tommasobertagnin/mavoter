@@ -5,8 +5,10 @@
   "author": "tommasobertagnin <tommasobertagnin@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "dev": "node ./server",
     "start": "NODE_ENV=production node ./server",
-    "dev": "node ./server"
+    "test:server": "mocha",
+    "test:client": "jest"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
@@ -19,6 +21,9 @@
     "passport-twitter": "^1.0.4"
   },
   "devDependencies": {
-    "dotenv": "^4.0.0"
+    "dotenv": "^4.0.0",
+    "jest": "^20.0.4",
+    "mocha": "^3.4.2",
+    "supertest": "^3.0.0"
   }
 }
