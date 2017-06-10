@@ -9,6 +9,7 @@ const path = require('path')
 
 // load .env
 require('dotenv').config()
+const inProduction = process.env.NODE_ENV === 'production'
 
 const app = express()
 
@@ -25,9 +26,7 @@ passport.serializeUser(User.serializeUser())
 passport.deserializeUser(User.deserializeUser())
 
 // MongoDB database
-const DB_URL = process.env.NODE_ENV === 'production'
-  ? process.env.DB_URL_PRODUCTION
-  : process.env.DB_URL_DEV
+const DB_URL = inProduction ? process.env.DB_URL_PRODUCTION : process.env.DB_URL_DEV
 mongoose.connect(DB_URL)
 const db = mongoose.connection
 db.on('error', console.error.bind(console, 'connection error:'))
@@ -42,10 +41,10 @@ app.use('/', require('./routes'))
 app.use('/api/users', require('./api/users'))
 app.use('/api/polls', require('./api/polls'))
 
+// TODO: find a good way to deal with errors
 // handle errors
-app.use((req, res, next, err) => {
-  res.status(err.status || 500)
-  res.json({ message: err.message })
+app.use((err, req, res, next) => {
+  return inProduction ? next(err) : res.json({ message: err.message })
 })
 
 app.listen(process.env.PORT || 8080, () => {
