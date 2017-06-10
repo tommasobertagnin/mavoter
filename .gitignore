@@ -1,5 +1,9 @@
 .DS_Store
 .env
+client
+client/node_modules
 data
 node_modules
 PROJECT.md
+PROJECT-LOG.md
+public

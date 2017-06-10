@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const pollsRouter = require('express').Router()
-const Poll = require('./poll.model')
+const Poll = require('../models/poll')
 
 // TODO: add polls tests
 
