@@ -42,6 +42,12 @@ app.use('/', require('./routes'))
 app.use('/api/users', require('./api/users'))
 app.use('/api/polls', require('./api/polls'))
 
+// handle errors
+app.use((req, res, next, err) => {
+  res.status(err.status || 500)
+  res.json({ message: err.message })
+})
+
 app.listen(process.env.PORT || 8080, () => {
   console.log('Server is Live!')
 })
